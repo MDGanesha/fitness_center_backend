@@ -275,10 +275,10 @@ class PaymentUpdate(PaymentBase):
     last_modified_by: Optional[str] = None
 
 
-class PaymentOut(PaymentBase):
+class PaymentOut(BaseModel):
     id: int
     created_by: str
-    created_date: datetime
+    created_date: datetime 
     last_modified_by: Optional[str]
     last_modified_date: Optional[datetime]
     is_deleted: bool
@@ -286,7 +286,7 @@ class PaymentOut(PaymentBase):
     deleted_date: Optional[datetime]
 
     class Config:
-        from_attribute = True
+        from_attributes = True  
 
 
 
