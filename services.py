@@ -68,7 +68,7 @@ def delete_trainer(db: Session, trainer_id: int, deleted_by: str):
         return None
     db_trainer.is_deleted = True
     db_trainer.deleted_by = deleted_by
-    db_trainer.deleted_date = datetime.utcnow()
+    db_trainer.deleted_date = datetime.now()
     db.commit()
     return db_trainer
 
@@ -102,7 +102,7 @@ def delete_package(db: Session, package_id: int, deleted_by: str):
         return None
     db_package.is_deleted = True
     db_package.deleted_by = deleted_by
-    db_package.deleted_date = datetime.utcnow()
+    db_package.deleted_date = datetime.now()
     db.commit()
     db.refresh(db_package)
     return db_package
@@ -138,7 +138,7 @@ def delete_promotion(db: Session, promotion_id: int, deleted_by: str):
     if db_promotion:
         db_promotion.is_deleted = True
         db_promotion.deleted_by = deleted_by
-        db_promotion.deleted_date = datetime.utcnow()
+        db_promotion.deleted_date = datetime.now()
         db.commit()
         db.refresh(db_promotion)
     return db_promotion
@@ -348,7 +348,7 @@ def update_batch(db: Session, batch_id: int, batch_update: schemas.BatchUpdate):
         return None
     for field, value in batch_update.model_dump(exclude_unset=True).items():
         setattr(db_batch, field, value)
-    db_batch.last_modified_date = datetime.utcnow()
+    db_batch.last_modified_date = datetime.now()
     db.commit()
     db.refresh(db_batch)
     return db_batch
@@ -359,6 +359,6 @@ def delete_batch(db: Session, batch_id: int, deleted_by: str):
         return None
     db_batch.is_deleted = True
     db_batch.deleted_by = deleted_by
-    db_batch.deleted_date = datetime.utcnow()
+    db_batch.deleted_date = datetime.now()
     db.commit()
     return db_batch

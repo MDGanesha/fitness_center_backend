@@ -31,10 +31,6 @@ class Branch(BranchBase):
     class Config:
         from_attributes = True  # formerly from_orm=True
 
-from pydantic import BaseModel
-from typing import Optional
-from datetime import datetime
-
 class TrainerBase(BaseModel):
     full_name: str
     phone: str

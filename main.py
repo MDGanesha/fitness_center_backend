@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, FastAPI
 from sqlalchemy.orm import Session
 import services, schemas
 from db import get_db
+from typing import List
 
 app = FastAPI()
 
@@ -16,7 +17,7 @@ def read(branch_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Branch not found")
     return branch
 
-@app.get("/branches/", response_model=list[schemas.Branch])
+@app.get("/branches/", response_model=List[schemas.Branch])
 def read_all(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     return services.get_all_branches(db, skip=skip, limit=limit)
 
@@ -47,7 +48,7 @@ def get_trainer(trainer_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Trainer not found")
     return trainer
 
-@app.get("/trainers/", response_model=list[schemas.Trainer])
+@app.get("/trainers/", response_model=List[schemas.Trainer])
 def get_all_trainers(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     return services.get_all_trainers(db, skip=skip, limit=limit)
 
@@ -76,7 +77,7 @@ def read_batch(batch_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Batch not found")
     return db_batch
 
-@app.get("/batches/", response_model=list[schemas.Batch])
+@app.get("/batches/", response_model=List[schemas.Batch])
 def read_batches(db: Session = Depends(get_db)):
     return services.get_all_batches(db)
 
@@ -106,7 +107,7 @@ def get_package(package_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Package not found")
     return package
 
-@app.get("/packages/", response_model=list[schemas.Package])
+@app.get("/packages/", response_model=List[schemas.Package])
 def get_all_packages(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     return services.get_all_packages(db, skip=skip, limit=limit)
 
@@ -137,7 +138,7 @@ def get_promotion(promotion_id: int, db: Session = Depends(get_db)):
     return promotion
 
 
-@app.get("/promotions/", response_model=list[schemas.Promotion])
+@app.get("/promotions/", response_model=List[schemas.Promotion])
 def get_all_promotions(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     return services.get_all_promotions(db, skip=skip, limit=limit)
 
@@ -171,7 +172,7 @@ def get_user(user_id: int, db: Session = Depends(get_db)):
     return user
 
 
-@app.get("/users/", response_model=list[schemas.User])
+@app.get("/users/", response_model=List[schemas.User])
 def get_all_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     return services.get_all_users(db, skip=skip, limit=limit)
 
@@ -198,7 +199,7 @@ def create_member(member: schemas.MemberCreate, db: Session = Depends(get_db)):
     return services.create_member(db, member)
 
 
-@app.get("/members/", response_model=list[schemas.MemberOut])
+@app.get("/members/", response_model=List[schemas.MemberOut])
 def read_members(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     return services.get_members(db, skip, limit)
 
@@ -233,7 +234,7 @@ def create_payment(payment: schemas.PaymentCreate, db: Session = Depends(get_db)
     return services.create_payment(db, payment)
 
 
-@app.get("/payments/", response_model=list[schemas.PaymentOut])
+@app.get("/payments/", response_model=List[schemas.PaymentOut])
 def read_payments(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     return services.get_payments(db, skip, limit)
 
@@ -267,7 +268,7 @@ def create_reminder_setting(setting: schemas.ReminderSettingCreate, db: Session 
     return services.create_reminder_setting(db, setting)
 
 
-@app.get("/reminder-settings/", response_model=list[schemas.ReminderSettingOut])
+@app.get("/reminder-settings/", response_model=List[schemas.ReminderSettingOut])
 def read_reminder_settings(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     return services.get_reminder_settings(db, skip, limit)
 
